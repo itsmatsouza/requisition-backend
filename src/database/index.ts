@@ -4,7 +4,7 @@ export const sequelize = new Sequelize({
   dialect: 'postgres',
   host: 'localhost',
   port: 5432,
-  database: 'onebitflix_development',
+  database: 'workflow_development',
   username: 'postgres',
   password: 'Mateus@2023',
   define: {
