@@ -1,46 +1,44 @@
 import { sequelize } from "../database";
 import { DataTypes, Model, Optional } from "sequelize";
 
-export interface Workflow {
+export interface Step {
   id: number;
   name: string;
   description: string
-  owner: string
-  finished: boolean
-  status: string
+  workflowId: number
+  approval: string
   attachmentUrl: string
 }
 
-export interface WorkflowCreationAttributes extends Optional<Workflow, "id"> {}
+export interface StepCreationAttributes extends Optional<Step, "id"> {}
 
-export interface WorkflowInstance
-  extends Model<Workflow, WorkflowCreationAttributes>,
-    Workflow {}
+export interface StepInstance
+  extends Model<Step, StepCreationAttributes>,
+    Step {}
 
-export const Workflow = sequelize.define<WorkflowInstance, Workflow>("Workflow", {
+export const Step = sequelize.define<StepInstance, Step>("Step", {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER
   },
   name: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.STRING
   },
   description: {
     allowNull: false,
     type: DataTypes.STRING
   },
-  owner: {
+  workflowId: {
     allowNull: false,
-    type: DataTypes.STRING
+    type: DataTypes.INTEGER,
+    references: { model: 'workflows', key: 'id' },
+    onUpdate: 'CASCADE',
+    onDelete: 'RESTRICT'
   },
-  finished: {
-    defaultValue: false,
-    type: DataTypes.BOOLEAN,
-  },
-  status: {
+  approval: {
     type: DataTypes.STRING,
     validate: {
       isIn: [["approved", "notApproved", "waiting"]],

@@ -2,7 +2,7 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('workflows', {
+    await queryInterface.createTable('steps', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,15 +17,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DataTypes.STRING
       },
-      owner: {
+      workflow_id: {
         allowNull: false,
-        type: Sequelize.DataTypes.STRING
+        type: Sequelize.DataTypes.INTEGER,
+        references: { model: 'workflows', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'RESTRICT'
       },
-      finished: {
-        defaultValue: false,
-        type: Sequelize.DataTypes.BOOLEAN
-      },
-      status: {
+      approval: {
         defaultValue: "waiting",
         type: Sequelize.DataTypes.STRING
       },
@@ -45,6 +44,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('workflows')
+    await queryInterface.dropTable('steps')
   }
 };
