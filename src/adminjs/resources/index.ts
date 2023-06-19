@@ -2,7 +2,7 @@ import { ResourceWithOptions } from "adminjs";
 import { Department, RequisitionItem, User, Requisition, RequisitionStatus, Project, UnitOfMeasurement, TaxItemNumber } from "../../models";
 import { departmentResourceOptions } from "./department";
 import { userResourceOptions } from "./user";
-import { requisitionResourceFeatures, requisitionResourceOptions } from "./requisition";
+import { requisitionResourceOptions } from "./requisition";
 import { requisitionItemResourceOptions } from "./requisitionItem";
 import { requisitionStatusResourceOptions } from "./requisitionStatus";
 import { projectResourceOptions } from "./project";
@@ -23,7 +23,7 @@ export const adminJsResources: ResourceWithOptions[] = [
   {
     resource: Requisition,
     options: requisitionResourceOptions,
-    features: requisitionResourceFeatures
+    // features: requisitionResourceFeatures
   },
   {
     resource: RequisitionItem,

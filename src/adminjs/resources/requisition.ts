@@ -46,18 +46,18 @@ export const requisitionResourceOptions: ResourceOptions = {
   ],
 };
 
-export const requisitionResourceFeatures: FeatureType[] = [
-  uploadFileFeature({
-    provider: {
-      local: {
-        bucket: path.join(__dirname, "..", "..", "..", "uploads"),
-      },
-    },
-    properties: {
-      key: "attachmentUrl",
-      file: "attachmentUpload",
-    },
-    uploadPath: (record, filename) =>
-      `attachment/requisition-${record.get("id")}/${filename}`,
-  }),
-];
+// export const requisitionResourceFeatures: FeatureType[] = [
+//   uploadFileFeature({
+//     provider: {
+//       local: {
+//         bucket: path.join(__dirname, "..", "..", "..", "uploads"),
+//       },
+//     },
+//     properties: {
+//       key: "attachmentUrl",
+//       file: "attachmentUpload",
+//     },
+//     uploadPath: (record, filename) =>
+//       `attachment/requisition-${record.get("id")}/${filename}`,
+//   }),
+// ];
