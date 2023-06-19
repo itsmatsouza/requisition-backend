@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 
 export const sequelize = new Sequelize({
   dialect: 'postgres',
-  host: 'https://requisition-workflow-initial.onrender.com',
+  host: 'localhost',
   port: 5432,
   database: 'requisition_development',
   username: 'postgres',
