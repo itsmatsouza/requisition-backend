@@ -34,6 +34,7 @@ export const userResourceOptions: ResourceOptions = {
     "updatedAt",
   ],
   listProperties: [
+    "id",
     "firstName",
     "lastName",
     "email",
@@ -42,6 +43,7 @@ export const userResourceOptions: ResourceOptions = {
     "departmentId",
   ],
   showProperties: [
+    "id",
     "firstName",
     "lastName",
     "email",

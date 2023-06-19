@@ -1,9 +1,15 @@
 import { ResourceWithOptions } from "adminjs";
-import { Department, Step, User, Workflow } from "../../models";
+import { Department, RequisitionItem, User, Requisition, RequisitionStatus, Project, UnitOfMeasurement, TaxItemNumber } from "../../models";
 import { departmentResourceOptions } from "./department";
 import { userResourceOptions } from "./user";
-import { workflowResourceOptions } from "./workflow";
-import { stepResourceOptions } from "./step";
+import { requisitionResourceFeatures, requisitionResourceOptions } from "./requisition";
+import { requisitionItemResourceOptions } from "./requisitionItem";
+import { requisitionStatusResourceOptions } from "./requisitionStatus";
+import { projectResourceOptions } from "./project";
+import { taxItemNumberResourceOptions } from "./taxItemNumber";
+import { unitOfMeasurementResourceOptions } from "./unitOfMeasurement";
+import { sendToResourceOptions } from "./sendTo";
+import { SendTo } from "../../models/SendTo";
 
 export const adminJsResources: ResourceWithOptions[] = [
   {
@@ -15,11 +21,32 @@ export const adminJsResources: ResourceWithOptions[] = [
     options: userResourceOptions,
   },
   {
-    resource: Workflow,
-    options: workflowResourceOptions,
+    resource: Requisition,
+    options: requisitionResourceOptions,
+    features: requisitionResourceFeatures
   },
   {
-    resource: Step,
-    options: stepResourceOptions,
+    resource: RequisitionItem,
+    options: requisitionItemResourceOptions,
+  },
+  {
+    resource: RequisitionStatus,
+    options: requisitionStatusResourceOptions
+  },
+  {
+    resource: Project,
+    options: projectResourceOptions
+  },
+  {
+    resource: TaxItemNumber,
+    options: taxItemNumberResourceOptions
+  },
+  {
+    resource: UnitOfMeasurement,
+    options: unitOfMeasurementResourceOptions
+  },
+  {
+    resource: SendTo,
+    options: sendToResourceOptions
   }
 ];

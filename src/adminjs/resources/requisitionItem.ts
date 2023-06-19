@@ -1,0 +1,47 @@
+import { ResourceOptions } from "adminjs";
+
+export const requisitionItemResourceOptions: ResourceOptions = {
+  navigation: "Fluxos",
+  editProperties: [
+    "requisitionId",
+    "taxItemNumberId",
+    "quantity",
+    "unitOfMeasurementId",
+    "unitPrice",
+    "name",
+    "observation",
+  ],
+  filterProperties: [
+    "requisitionId",
+    "taxItemNumberId",
+    "quantity",
+    "unitOfMeasurementId",
+    "unitPrice",
+    "name",
+    "observation",
+    "createdAt",
+    "updatedAt",
+  ],
+  listProperties: [
+    "id",
+    "requisitionId",
+    "taxItemNumberId",
+    "quantity",
+    "unitOfMeasurementId",
+    "unitPrice",
+    "name",
+    "observation",
+  ],
+  showProperties: [
+    "id",
+    "requisitionId",
+    "taxItemNumberId",
+    "quantity",
+    "unitOfMeasurementId",
+    "unitPrice",
+    "name",
+    "observation",
+    "createdAt",
+    "updatedAt",
+  ],
+};
