@@ -46,6 +46,7 @@ export const requisitionResourceOptions: ResourceOptions = {
   ],
 };
 
+// Modulo para anexar fotos e videos
 export const requisitionResourceFeatures: FeatureType[] = [
   uploadFileFeature({
     provider: {
