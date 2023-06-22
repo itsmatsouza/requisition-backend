@@ -1,5 +1,6 @@
 import { sequelize } from "../database";
 import { DataTypes, Model, Optional } from "sequelize";
+import { requisitionService } from "../services/requisitionService";
 
 export interface SendTo {
   id: number;
@@ -37,5 +38,12 @@ export const SendTo = sequelize.define<SendToInstance, SendTo>(
       onUpdate: "CASCADE",
       onDelete: "RESTRICT",
     },
+  },
+  {
+    hooks: {
+      afterSave: async (sendTo) => {
+        requisitionService.setInApproval(Number(sendTo.userId), Number(sendTo.requisitionId))
+      }
+    }
   }
 );

@@ -6,6 +6,7 @@ import { RequisitionStatus } from "./RequisitionStatus";
 import { Project } from "./Project";
 import { TaxItemNumber } from "./TaxItemNumber";
 import { UnitOfMeasurement } from "./UnitOfMeasurement";
+import { InApproval } from "./InApproval";
 
 Department.hasMany(User, { as: "users" });
 User.belongsTo(Department);
@@ -31,6 +32,9 @@ RequisitionItem.belongsTo(TaxItemNumber);
 UnitOfMeasurement.hasMany(RequisitionItem, { as: "requisitionItems" });
 RequisitionItem.belongsTo(UnitOfMeasurement);
 
+Requisition.belongsToMany(User, { through: InApproval });
+User.belongsToMany(Requisition, { through: InApproval });
+
 export {
   Department,
   User,
@@ -40,4 +44,5 @@ export {
   Project,
   TaxItemNumber,
   UnitOfMeasurement,
+  InApproval
 };
