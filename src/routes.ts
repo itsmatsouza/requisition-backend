@@ -10,6 +10,7 @@ router.post('/auth/register', authController.register)
 router.post('/auth/login', authController.login)
 
 router.get('/users/current/approval', ensureAuth, usersController.approval)
+router.get('/users/current/approvallist', ensureAuth, usersController.approval)
 
 router.get('/requisitions/:id/inapproval', ensureAuth, requisitionController.getInApproval)
 

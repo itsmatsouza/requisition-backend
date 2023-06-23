@@ -52,21 +52,30 @@ export const userService = {
           ['attachment_url', 'attachmentUrl']
         ],
         include: [{
-          association: 'RequisitionItems',
+          association: 'requisitionItems',
           attributes: [
             'id',
             'name',
-            ['tax_items_number_id', 'taxItemNumberId'],
+            ['tax_item_number_id', 'taxItemNumberId'],
             'quantity',
             ['unit_of_measurement_id', 'unitOfMeasurementId'],
             ['unit_price', 'unitPrice'],
             'observation'
           ]
-        }]
-        
-      }
+        }], 
+        through: {
+          as: 'inApproval',
+          attributes: [
+            ['updated_at', 'updatedAt']
+          ]
+        }
+      },
     })
 
     if (!userWithRequisitionInApproval) throw new Error('Usuario nao encontrado')
+
+    console.log('chegou ate aqui')
+
+    return userWithRequisitionInApproval
   }
 }

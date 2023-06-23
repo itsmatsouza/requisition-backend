@@ -23,7 +23,7 @@ Requisition.belongsTo(RequisitionStatus);
 Project.hasMany(Requisition, { as: "requisitions" });
 Requisition.belongsTo(Project);
 
-Requisition.hasMany(RequisitionItem, { as: "requisitionsItems" });
+Requisition.hasMany(RequisitionItem, { as: "requisitionItems" });
 RequisitionItem.belongsTo(Requisition);
 
 TaxItemNumber.hasMany(RequisitionItem, { as: "requisitionItems" });
