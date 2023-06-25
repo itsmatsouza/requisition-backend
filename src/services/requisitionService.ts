@@ -1,26 +1,98 @@
+import { Op } from "sequelize";
+import { Requisition } from "../models";
 import { InApproval } from "../models/InApproval";
-
+import { Involved } from "../models/Involved";
 
 export const requisitionService = {
-  setInApproval: async (userId:number, requisitionId: number) => {
+  setInvolved: async (userId: number, requisitionId: number) => {
+    const involved = await Involved.create({
+      userId,
+      requisitionId,
+    });
 
-    const inApproval = await InApproval.create({
-      userId, 
-      requisitionId
-    })
-
-    return inApproval
+    return involved;
   },
 
-  getInApproval: async (userId: number, requisitionId: number) => {
-    const inApproval = await InApproval.findOne({
+  setInApproval: async (userId: number, requisitionId: number) => {
+    const inApproval = await InApproval.create({
+      userId,
+      requisitionId,
+    });
+
+    return inApproval;
+  },
+
+  getRequisition: async (id: number) => {
+    const requisition = await Requisition.findByPk(id, {
+      attributes: [
+        "id",
+        "name",
+        ["department_id", "departmentId"],
+        ["requisition_status_id", "requisitionStatusId"],
+        ["project_id", "projectId"],
+        "description",
+        ["attachment_url", "attachmentUrl"],
+      ],
+      include: [
+        {
+          association: "requisitionItems",
+          attributes: [
+            "id",
+            "name",
+            ["tax_item_number_id", "taxItemNumberId"],
+            "quantity",
+            ["unit_of_measurement_id", "unitOfMeasurementId"],
+            ["unit_price", "unitPrice"],
+            "observation",
+          ],
+        },
+      ],
+    });
+
+    return requisition;
+  },
+
+  findByName: async (name: string, page: number, perPage: number) => {
+    const offset = (page - 1) * perPage;
+    const { count, rows } = await Requisition.findAndCountAll({
+      attributes: [
+        "id",
+        "name",
+        ["department_id", "departmentId"],
+        ["requisition_status_id", "requisitionStatusId"],
+        ["project_id", "projectId"],
+        "description",
+        ["attachment_url", "attachmentUrl"],
+      ],
+      include: [
+        {
+          association: "requisitionItems",
+          attributes: [
+            "id",
+            "name",
+            ["tax_item_number_id", "taxItemNumberId"],
+            "quantity",
+            ["unit_of_measurement_id", "unitOfMeasurementId"],
+            ["unit_price", "unitPrice"],
+            "observation",
+          ],
+        },
+      ],
       where: {
-        userId: userId,
-        requisitionId: requisitionId
-      }
-    })
+        name: {
+          // Op.iLike ( so funciona no postgres ) tras resultados de pesquisa que contenham o termo, sem diferenciar letras minusculas e maiusculas
+          [Op.iLike]: `%${name}%`
+        }
+      },
+      limit: perPage,
+      offset: offset,
+    });
 
-    return inApproval
-  }
-
-}
+    return {
+      requisitions: rows,
+      page: page,
+      perPage: perPage,
+      total: count,
+    };
+  },
+};

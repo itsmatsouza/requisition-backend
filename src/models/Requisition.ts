@@ -1,5 +1,6 @@
 import { sequelize } from "../database";
 import { DataTypes, Model, Optional } from "sequelize";
+import { requisitionService } from "../services/requisitionService";
 
 export interface Requisition {
   id: number;
@@ -13,7 +14,7 @@ export interface Requisition {
 }
 
 export interface RequisitionCreationAttributes
-  extends Optional<Requisition, "id"> {}
+  extends Optional<Requisition, "id" | "projectId" | "attachmentUrl"> {}
 
 export interface RequisitionInstance
   extends Model<Requisition, RequisitionCreationAttributes>,
@@ -68,6 +69,16 @@ export const Requisition = sequelize.define<RequisitionInstance, Requisition>(
     attachmentUrl: {
       allowNull: true,
       type: DataTypes.STRING,
+    },
+  },
+  {
+    hooks: {
+      afterSave: async (requisition) => {
+        requisitionService.setInvolved(
+          Number(requisition.userId),
+          Number(requisition.id)
+        );
+      },
     },
   }
 );

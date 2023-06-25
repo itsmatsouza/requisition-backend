@@ -20,4 +20,20 @@ export const usersController = {
       }
     }
   },
+
+  // GET /users/current/involved
+  involved: async (req: AuthenticatedRequest, res: Response) => {
+    const { id } = req.user!;
+
+    try {
+      const involved = await userService.getInvolvedList(
+        Number(id)
+      );
+      return res.json(involved);
+    } catch (err) {
+      if (err instanceof Error) {
+        return res.status(400).json({ message: err.message });
+      }
+    }
+  },
 };

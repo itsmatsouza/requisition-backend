@@ -11,7 +11,9 @@ router.post('/auth/login', authController.login)
 
 router.get('/users/current/approval', ensureAuth, usersController.approval)
 router.get('/users/current/approvallist', ensureAuth, usersController.approval)
+router.get('/users/current/involved', ensureAuth, usersController.involved)
 
-router.get('/requisitions/:id/inapproval', ensureAuth, requisitionController.getInApproval)
+router.get('/requisitions/search', ensureAuth, requisitionController.search)
+router.get('/requisitions/:id', ensureAuth, requisitionController.show)
 
 export { router }
