@@ -5,7 +5,6 @@ module.exports = {
     await queryInterface.createTable('in_approvals', {
       user_id: {
         allowNull: false,
-        primaryKey: true,
         type: Sequelize.DataTypes.INTEGER,
         references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',

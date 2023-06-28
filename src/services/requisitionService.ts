@@ -2,6 +2,7 @@ import { Op } from "sequelize";
 import { Requisition } from "../models";
 import { InApproval } from "../models/InApproval";
 import { Involved } from "../models/Involved";
+import { SendTo } from "../models/SendTo";
 
 export const requisitionService = {
   setInvolved: async (userId: number, requisitionId: number) => {
@@ -14,12 +15,25 @@ export const requisitionService = {
   },
 
   setInApproval: async (userId: number, requisitionId: number) => {
-    const inApproval = await InApproval.create({
-      userId,
-      requisitionId,
+    const approvalAlreadyExists = await InApproval.findOne({
+      where: {
+        requisitionId,
+      },
     });
 
-    return inApproval;
+    if (approvalAlreadyExists) {
+      approvalAlreadyExists.userId = userId
+      await approvalAlreadyExists.save()
+      
+    } else {
+        const inApproval = await InApproval.create({
+          userId,
+          requisitionId,
+        });
+    
+        return inApproval;
+    }
+
   },
 
   getRequisition: async (id: number) => {
@@ -49,7 +63,16 @@ export const requisitionService = {
       ],
     });
 
-    return requisition;
+    const requisitionHistoric = await SendTo.findAll({
+      where: {
+        requisitionId: id,
+      },
+    });
+
+    return {
+      requisition: requisition,
+      historic: requisitionHistoric
+    };
   },
 
   findByName: async (name: string, page: number, perPage: number) => {
@@ -81,8 +104,8 @@ export const requisitionService = {
       where: {
         name: {
           // Op.iLike ( so funciona no postgres ) tras resultados de pesquisa que contenham o termo, sem diferenciar letras minusculas e maiusculas
-          [Op.iLike]: `%${name}%`
-        }
+          [Op.iLike]: `%${name}%`,
+        },
       },
       limit: perPage,
       offset: offset,

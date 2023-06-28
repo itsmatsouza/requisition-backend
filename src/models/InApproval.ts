@@ -11,7 +11,6 @@ export interface InApprovalInstance extends Model<InApprovalAttributes>, InAppro
 export const InApproval = sequelize.define<InApprovalInstance, InApprovalAttributes>('InApproval', {
   userId: {
     allowNull: false,
-    primaryKey: true,
     type: DataTypes.INTEGER,
     references: { model: 'users', key: 'id' },
     onUpdate: 'CASCADE',
