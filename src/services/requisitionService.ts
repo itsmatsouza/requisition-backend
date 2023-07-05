@@ -1,10 +1,24 @@
 import { Op } from "sequelize";
-import { Requisition } from "../models";
+import { Department, Requisition } from "../models";
 import { InApproval } from "../models/InApproval";
 import { Involved } from "../models/Involved";
 import { SendTo } from "../models/SendTo";
+import { RequisitionCreationAttributes } from "../models/Requisition";
+import { RequisitionItem, RequisitionItemCreationAttributes } from "../models/RequisitionItem";
 
 export const requisitionService = {
+  create: async (attributes: RequisitionCreationAttributes) => {
+    const requisition = await Requisition.create(attributes)
+    
+    return requisition
+  },
+
+  createItem: async (attributes: RequisitionItemCreationAttributes) => {
+    const requisitionItem = await RequisitionItem.create(attributes)
+
+    return requisitionItem
+  },
+
   setInvolved: async (userId: number, requisitionId: number) => {
     const involved = await Involved.create({
       userId,
@@ -34,6 +48,21 @@ export const requisitionService = {
         return inApproval;
     }
 
+  },
+
+  sendTo: async (departmentId: number, requisitionId: number) => {
+    const departmentOwner = await Department.findOne({
+      where: {
+        id: departmentId
+      }
+    })
+
+    const sendTo = await SendTo.create({
+      userId: departmentOwner!.userId,
+      requisitionId
+    })
+
+    return sendTo
   },
 
   getRequisition: async (id: number) => {

@@ -74,10 +74,14 @@ export const Requisition = sequelize.define<RequisitionInstance, Requisition>(
   {
     hooks: {
       afterSave: async (requisition) => {
-        requisitionService.setInvolved(
+        await requisitionService.setInvolved(
           Number(requisition.userId),
           Number(requisition.id)
         );
+        await requisitionService.sendTo(
+          Number(requisition.departmentId),
+          Number(requisition.id)
+        )
       },
     },
   }

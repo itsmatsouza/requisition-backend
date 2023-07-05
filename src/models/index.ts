@@ -12,6 +12,9 @@ import { Involved } from "./Involved";
 Department.hasMany(User, { as: "users" });
 User.belongsTo(Department);
 
+Department.belongsTo(User);
+User.belongsTo(Department);
+
 User.hasMany(Requisition, { as: "requisitions" });
 Requisition.belongsTo(User);
 
