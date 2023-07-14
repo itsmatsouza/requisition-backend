@@ -3,6 +3,7 @@ import { ResourceOptions } from "adminjs";
 export const requisitionItemResourceOptions: ResourceOptions = {
   navigation: "Fluxos",
   editProperties: [
+    "sequence",
     "requisitionId",
     "taxItemNumberId",
     "quantity",
@@ -12,6 +13,7 @@ export const requisitionItemResourceOptions: ResourceOptions = {
     "observation",
   ],
   filterProperties: [
+    "sequence",
     "requisitionId",
     "taxItemNumberId",
     "quantity",
@@ -24,6 +26,7 @@ export const requisitionItemResourceOptions: ResourceOptions = {
   ],
   listProperties: [
     "id",
+    "sequence",
     "requisitionId",
     "taxItemNumberId",
     "quantity",
@@ -34,6 +37,7 @@ export const requisitionItemResourceOptions: ResourceOptions = {
   ],
   showProperties: [
     "id",
+    "sequence",
     "requisitionId",
     "taxItemNumberId",
     "quantity",

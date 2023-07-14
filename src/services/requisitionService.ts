@@ -13,12 +13,6 @@ export const requisitionService = {
     return requisition
   },
 
-  createItem: async (attributes: RequisitionItemCreationAttributes) => {
-    const requisitionItem = await RequisitionItem.create(attributes)
-
-    return requisitionItem
-  },
-
   setInvolved: async (userId: number, requisitionId: number) => {
     const involved = await Involved.create({
       userId,
@@ -81,6 +75,7 @@ export const requisitionService = {
           association: "requisitionItems",
           attributes: [
             "id",
+            "sequence",
             "name",
             ["tax_item_number_id", "taxItemNumberId"],
             "quantity",
@@ -121,6 +116,7 @@ export const requisitionService = {
           association: "requisitionItems",
           attributes: [
             "id",
+            "sequence",
             "name",
             ["tax_item_number_id", "taxItemNumberId"],
             "quantity",

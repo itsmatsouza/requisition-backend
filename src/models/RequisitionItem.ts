@@ -3,6 +3,7 @@ import { DataTypes, Model, Optional } from "sequelize";
 
 export interface RequisitionItem {
   id: number;
+  sequence: number;
   requisitionId: number;
   taxItemNumberId: number;
   quantity: number;
@@ -27,6 +28,10 @@ export const RequisitionItem = sequelize.define<
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
+    type: DataTypes.INTEGER,
+  },
+  sequence: {
+    allowNull: false,
     type: DataTypes.INTEGER,
   },
   requisitionId: {
